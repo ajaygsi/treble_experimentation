@@ -25,8 +25,8 @@ elif [ "$1" == "android-10.0" ];then
     aosp="android-10.0.0_r41"
     phh="android-10.0"
 elif [ "$1" == "android-11.0" ];then
-    manifest_url="https://android.googlesource.com/platform/manifest"
-    aosp="android-11.0.0_r48"
+    manifest_url="https://github.com/PixelExperience/manifest"
+    aosp="android-11"
     phh="android-11.0"
 else
 	# guess android version from version number
@@ -99,55 +99,15 @@ if [ "$build_target" == "android-11.0" ];then
     # ARM64 floss {ab, a-only, ab vndk lite}
 	buildVariant treble_arm64_bfS-userdebug roar-arm64-ab-floss
     ( cd sas-creator; bash run.sh 64 ; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm64-aonly-floss.img.xz)
-    ( cd sas-creator; bash lite-adapter.sh 64; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm64-ab-vndklite-floss.img.xz )
-
-    # ARM32 vanilla {ab, a-only}
-	buildVariant treble_arm_bvS-userdebug roar-arm-ab-vanilla
-    ( cd sas-creator; bash run.sh 32; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm-aonly-vanilla.img.xz )
-
-    # ARM32 gogapps {ab, a-only}
-	buildVariant treble_arm_boS-userdebug roar-arm-ab-gogapps
-    ( cd sas-creator; bash run.sh 32; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm-aonly-gogapps.img.xz )
-
-    # ARM32_binder64 vanilla {ab, ab vndk lite}
-	buildVariant treble_a64_bvS-userdebug roar-arm32_binder64-ab-vanilla
-    ( cd sas-creator; bash lite-adapter.sh 32; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm32_binder64-ab-vndklite-vanilla.img.xz)
-
-    # ARM64 Gapps {ab, a-only, ab vndk lite}
-	buildVariant treble_arm64_bgS-userdebug roar-arm64-ab-gapps
-    ( cd sas-creator; bash run.sh 64 ; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm64-aonly-gapps.img.xz)
-    ( cd sas-creator; bash lite-adapter.sh 64; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm64-ab-vndklite-gapps.img.xz )
-
-    # ARM32_binder64 go gapps {ab, ab vndk lite}
-	buildVariant treble_a64_boS-userdebug roar-arm32_binder64-ab-gogapps
-    ( cd sas-creator; bash lite-adapter.sh 32; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm32_binder64-ab-vndklite-gogapps.img.xz )
-
-    # ARM32_binder64 gapps {ab, ab vndk lite}
-	buildVariant treble_a64_bgS-userdebug roar-arm32_binder64-ab-gapps
-    ( cd sas-creator; bash lite-adapter.sh 32; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm32_binder64-ab-vndklite-gapps.img.xz )
-elif [ "$build_target" == "android-10.0" ];then
-	buildVariant treble_arm64_afS-userdebug quack-arm64-aonly-floss
-	buildVariant treble_arm64_avS-userdebug quack-arm64-aonly-vanilla
-	buildVariant treble_arm64_agS-userdebug quack-arm64-aonly-gapps
-	buildVariant treble_arm64_aoS-userdebug quack-arm64-aonly-go
+    ( cd sas-creator; bash lite-adapter.sh 64; xz -c s.img -T0 > ../release/$rom_fp/system-roar-arm64-ab-vndklite-floss.img.xz 
+ elif [ "$build_target" == "android-10.0" ];then
 	buildVariant treble_arm64_bfS-userdebug quack-arm64-ab-floss
 	buildVariant treble_arm64_bvS-userdebug quack-arm64-ab-vanilla
 	buildVariant treble_arm64_bgS-userdebug quack-arm64-ab-gapps
 	buildVariant treble_arm64_boS-userdebug quack-arm64-ab-go
-	buildVariant treble_arm_avS-userdebug quack-arm-aonly-vanilla
-	buildVariant treble_arm_agS-userdebug quack-arm-aonly-gapps
-	buildVariant treble_arm_aoS-userdebug quack-arm-aonly-go
-	buildVariant treble_arm_bvS-userdebug quack-arm-ab-vanilla
-	buildVariant treble_arm_bgS-userdebug quack-arm-ab-gapps
-	buildVariant treble_arm_boS-userdebug quack-arm-ab-go
-	buildVariant treble_a64_avS-userdebug quack-arm32_binder64-aonly-vanilla
-	buildVariant treble_a64_agS-userdebug quack-arm32_binder64-aonly-gapps
-	buildVariant treble_a64_aoS-userdebug quack-arm32_binder64-aonly-go
-	buildVariant treble_a64_bvS-userdebug quack-arm32_binder64-ab-vanilla
-	buildVariant treble_a64_bgS-userdebug quack-arm32_binder64-ab-gapps
-	buildVariant treble_a64_boS-userdebug quack-arm32_binder64-ab-go
+
 else
-	buildVariant treble_arm64_avN-userdebug arm64-aonly-vanilla-nosu
+        buildVariant treble_arm64_avN-userdebug arm64-aonly-vanilla-nosu
 	buildVariant treble_arm64_agS-userdebug arm64-aonly-gapps-su
 	#buildVariant treble_arm64_afS-userdebug arm64-aonly-floss-su
 	rm -Rf out/target/product/phhgsi*
